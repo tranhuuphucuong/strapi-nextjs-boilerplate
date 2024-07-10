@@ -108,7 +108,7 @@ export default async function Hero({ data }: HeroProps) {
           />
 
           <div className="mt-4 flex flex-col drop-shadow-2xl sm:flex-row sm:items-center sm:justify-center sm:space-x-8 lg:justify-start">
-            {social_links?.data.map((link: SocialLink) => {
+            {social_links?.data?.map((link: SocialLink) => {
               return (
                 <a
                   key={link.id}

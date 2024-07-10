@@ -10,14 +10,14 @@ export const Contact = async () => {
   const contactData = await getContactPage();
   const global = await getGlobal();
 
-  const figureUrl = getStrapiMedia(contactData.figure?.url);
+  const figureUrl = getStrapiMedia(contactData?.figure?.url);
 
   return (
     <div>
       <Navbar
-        links={global.navLink}
-        logoText={global.avatartext}
-        logoUrl={global.avatar.url}
+        links={global?.navLink}
+        logoText={global?.avatartext}
+        logoUrl={global?.avatar?.url}
         theme="light"
         shadow
       />

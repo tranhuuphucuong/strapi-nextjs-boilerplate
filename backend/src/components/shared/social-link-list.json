@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_widget_social_link_lists",
+  "info": {
+    "displayName": "socialLinkList",
+    "icon": "earth",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "SocialLink": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.social-link"
+    }
+  }
+}

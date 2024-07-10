@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_meta_metadata",
+  "info": {
+    "displayName": "metadata",
+    "icon": "database"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

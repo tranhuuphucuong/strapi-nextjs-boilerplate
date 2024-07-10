@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 import { getStrapiMedia } from '@/api/api-helpers';
 import { getContactPage } from '@/api/contactPage';
 import { getGlobal } from '@/api/getGlobal';

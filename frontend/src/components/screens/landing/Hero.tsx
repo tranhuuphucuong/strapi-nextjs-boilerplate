@@ -56,7 +56,7 @@ interface HeroProps {
 export default async function Hero({ data }: HeroProps) {
   const { bio, social_links, picture } = data || {};
   const imgUrl = getStrapiMedia(picture?.url);
-  const avatarUrl = getStrapiMedia(bio?.avatar.url);
+  const avatarUrl = getStrapiMedia(bio?.avatar?.url);
   const global = await getGlobal();
 
   // TODO: CREATE A CUSTOM ERROR PAGE
@@ -113,13 +113,13 @@ export default async function Hero({ data }: HeroProps) {
                 <a
                   key={link.id}
                   rel="noopener noreferrer"
-                  href={link.url}
-                  title={link.title}
+                  href={link?.url}
+                  title={link?.title}
                   target={'_blank'}
                   className="justify-centers flex items-center rounded-full dark:bg-violet-400 dark:text-gray-900"
                 >
                   <RenderSocialIcon
-                    social={link.platform}
+                    social={link?.platform}
                     className="h-6 w-6"
                   />
                 </a>

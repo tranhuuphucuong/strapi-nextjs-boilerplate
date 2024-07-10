@@ -26,9 +26,9 @@ interface CategoryLink {
 
 type FooterProps = {
   footerLogo?: Media;
-  logoText: string;
-  socialLinks: SocialLink[];
-  legalLinks: StrapiLink[];
+  logoText?: string;
+  socialLinks?: SocialLink[];
+  legalLinks?: StrapiLink[];
   navLinks?: StrapiLink[];
 };
 
@@ -103,7 +103,7 @@ export default function Footer({
               ©{new Date().getFullYear()} All rights reserved
             </span>
             <ul className="flex">
-              {legalLinks.map((link: FooterLink) => (
+              {legalLinks?.map((link: FooterLink) => (
                 <Link
                   href={link.url}
                   className="mr-2 text-gray-400 hover:text-gray-300"
@@ -115,7 +115,7 @@ export default function Footer({
             </ul>
           </div>
           <div className="flex justify-center space-x-4 pt-4 lg:col-end-13 lg:pt-0">
-            {socialLinks.map((link) => {
+            {socialLinks?.map((link) => {
               return (
                 <a
                   key={link.id}

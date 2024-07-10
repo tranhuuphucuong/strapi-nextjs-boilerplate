@@ -8,18 +8,18 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import Logo from './Logo';
 
-interface NavLink {
-  id: number;
+interface NavLinkProps {
+  id?: number;
   url: string;
-  newTab: boolean;
+  newTab?: boolean;
   text: string;
 }
 
-interface MobileNavLink extends NavLink {
+interface MobileNavLink extends NavLinkProps {
   closeMenu: () => void;
 }
 
-function NavLink({ url, text }: NavLink) {
+function NavLink({ url, text }: NavLinkProps) {
   const path = usePathname();
 
   return (
@@ -63,7 +63,7 @@ export default function Navbar({
   logoUrl,
   shadow = false,
 }: {
-  links?: Array<NavLink>;
+  links?: Array<NavLinkProps>;
   logoText?: string;
   theme?: 'dark' | 'light';
   logoUrl?: string;
@@ -75,6 +75,7 @@ export default function Navbar({
   };
 
   const logo = logoUrl ? getStrapiMedia(logoUrl) : undefined;
+
   return (
     <div
       className={clsx(
@@ -91,7 +92,9 @@ export default function Navbar({
 
         <div className="ml-auto hidden flex-shrink-0 items-center lg:flex">
           <ul className="hidden items-stretch space-x-3 capitalize lg:flex">
-            {links?.map((item: NavLink) => <NavLink key={item.id} {...item} />)}
+            {links?.map((item: NavLinkProps) => (
+              <NavLink key={item.id} url={item.url} text={item.text} />
+            ))}
           </ul>
         </div>
 
@@ -124,7 +127,8 @@ export default function Navbar({
                     <MobileNavLink
                       key={item.id}
                       closeMenu={closeMenu}
-                      {...item}
+                      url={item.url}
+                      text={item.text}
                     />
                   ))}
                 </div>

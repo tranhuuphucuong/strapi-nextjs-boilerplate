@@ -68,13 +68,12 @@ export async function generateMetadata({
   if (!meta) return FALLBACK_SEO;
 
   const { title, description, favicon } = meta;
-  const { url } = favicon;
 
   return {
     title,
     description,
     icons: {
-      icon: [new URL(url, getStrapiURL())],
+      icon: [new URL(favicon?.url, getStrapiURL())],
     },
   };
 }

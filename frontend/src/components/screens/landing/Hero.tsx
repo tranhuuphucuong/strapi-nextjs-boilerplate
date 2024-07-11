@@ -1,5 +1,5 @@
 import Navbar from '@/components/Navbar';
-import { SocialLink } from '@/types';
+import { APIResponse } from '@/types/strapi';
 import Image from 'next/image';
 import { getStrapiMedia } from '../../../api/api-helpers';
 import { getGlobal } from '../../../api/getGlobal';
@@ -22,45 +22,19 @@ interface Picture {
 }
 
 interface HeroProps {
-  data?: {
-    bio: {
-      id: number;
-      title: string;
-      description: string;
-      avatar: {
-        id: number;
-        url: string;
-        alternativeText: null;
-        caption: null;
-        width: number;
-        height: number;
-      };
-    };
-    social_links: { data: SocialLink[] };
-    picture: {
-      id: number;
-      url: string;
-      alternativeText: null;
-      caption: null;
-      width: number;
-      height: number;
-    };
-    // id: string;
-    // title: string;
-    // description: string;
-    // picture: Picture;
-    // buttons: Button[];
-  };
+  data?: APIResponse<'api::landing-page.landing-page'>;
 }
 
 export default async function Hero({ data }: HeroProps) {
-  const { bio, social_links, picture } = data || {};
-  const imgUrl = getStrapiMedia(picture?.url);
-  const avatarUrl = getStrapiMedia(bio?.avatar?.url);
-  const global = await getGlobal();
+  if (!data?.data.attributes) return;
+  if (!data?.data.attributes.hero) return;
+  const { bio, social_links, picture } = data?.data.attributes.hero;
+  const imgUrl = getStrapiMedia(picture?.data.attributes.url);
+  const avatarUrl = getStrapiMedia(bio?.avatar?.data.attributes.url);
+  const global = (await getGlobal()) as APIResponse<'api::global.global'>;
 
   // TODO: CREATE A CUSTOM ERROR PAGE
-  if (!global) return null;
+  if (!global || !global.data) return null;
 
   // const navbarLogoUrl = getStrapiMedia(navbar.navbarLogo.logoImg?.url);
 
@@ -76,7 +50,7 @@ export default async function Hero({ data }: HeroProps) {
         backgroundPositionY: '-100px',
       }}
     >
-      <Navbar links={global.navLink} logoText={''} />
+      <Navbar links={global.data?.attributes.navLink} logoText={''} />
       <div className="container mx-auto flex flex-col justify-center p-6 sm:py-12 lg:flex-row lg:justify-between lg:py-32">
         <div className="flex flex-col justify-center rounded-lg p-6 text-center lg:max-w-xl lg:text-left xl:max-w-3xl">
           <div className="mb-8 flex items-center space-x-6 drop-shadow-2xl">
@@ -108,18 +82,18 @@ export default async function Hero({ data }: HeroProps) {
           />
 
           <div className="mt-4 flex flex-col drop-shadow-2xl sm:flex-row sm:items-center sm:justify-center sm:space-x-8 lg:justify-start">
-            {social_links?.data?.map((link: SocialLink) => {
+            {social_links?.data?.map((link) => {
               return (
                 <a
                   key={link.id}
                   rel="noopener noreferrer"
-                  href={link?.url}
-                  title={link?.title}
+                  href={link?.attributes.url}
+                  title={link?.attributes.title}
                   target={'_blank'}
                   className="justify-centers flex items-center rounded-full dark:bg-violet-400 dark:text-gray-900"
                 >
                   <RenderSocialIcon
-                    social={link?.platform}
+                    social={link?.attributes.platform}
                     className="h-6 w-6"
                   />
                 </a>

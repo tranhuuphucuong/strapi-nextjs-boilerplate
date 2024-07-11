@@ -3,21 +3,26 @@ import { getStrapiMedia } from '@/api/api-helpers';
 import { getContactPage } from '@/api/contactPage';
 import { getGlobal } from '@/api/getGlobal';
 import Navbar from '@/components/Navbar';
+import { APIResponse } from '@/types/strapi';
 import Image from 'next/image';
 import { ContactForm } from './contact-form';
 
 export const Contact = async () => {
-  const contactData = await getContactPage();
-  const global = await getGlobal();
+  const contactData =
+    (await getContactPage()) as APIResponse<'api::contact-page.contact-page'>;
+  const global = (await getGlobal()) as APIResponse<'api::global.global'>;
+  // const data = (await getData()) as APIResponseCollection<"api::post.post">;
 
-  const figureUrl = getStrapiMedia(contactData?.figure?.url);
+  const figureUrl = getStrapiMedia(
+    contactData.data?.attributes.figure?.data.attributes.url,
+  );
 
   return (
     <div>
       <Navbar
-        links={global?.navLink}
-        logoText={global?.avatartext}
-        logoUrl={global?.avatar?.url}
+        links={global.data?.attributes.navLink}
+        logoText={global.data?.attributes.avatartext}
+        logoUrl={global.data?.attributes.avatar?.data?.attributes.url}
         theme="light"
         shadow
       />
@@ -35,9 +40,11 @@ export const Contact = async () => {
         </figure>
         <div className="flex flex-1 flex-col md:w-2/5">
           <h1 className="text-4xl font-medium text-slate-700 md:max-w-3xl md:text-6xl">
-            {contactData.title}
+            {contactData.data?.attributes.title}
           </h1>
-          <p className="mb-14 mt-4 text-slate-800">{contactData.Description}</p>
+          <p className="mb-14 mt-4 text-slate-800">
+            {contactData.data?.attributes.Description}
+          </p>
           <ContactForm />
         </div>
       </div>

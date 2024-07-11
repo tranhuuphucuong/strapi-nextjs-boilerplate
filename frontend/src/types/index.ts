@@ -13,6 +13,7 @@ export interface StrapiLink {
   text: string;
   newTab: boolean;
 }
+
 export interface SocialLink {
   id: number;
   title: string;

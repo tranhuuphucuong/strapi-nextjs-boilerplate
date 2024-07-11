@@ -1,5 +1,6 @@
 'use client';
 import { getStrapiMedia } from '@/api/api-helpers';
+import { APIResponse } from '@/types/strapi';
 import { Dialog } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
@@ -10,16 +11,16 @@ import Logo from './Logo';
 
 interface NavLinkProps {
   id?: number;
-  url: string;
+  url?: string;
   newTab?: boolean;
-  text: string;
+  text?: string;
 }
 
 interface MobileNavLink extends NavLinkProps {
   closeMenu: () => void;
 }
 
-function NavLink({ url, text }: NavLinkProps) {
+function NavLink({ url = '#', text = '' }: NavLinkProps) {
   const path = usePathname();
 
   return (
@@ -36,7 +37,7 @@ function NavLink({ url, text }: NavLinkProps) {
   );
 }
 
-function MobileNavLink({ url, text, closeMenu }: MobileNavLink) {
+function MobileNavLink({ url = '#', text = '', closeMenu }: MobileNavLink) {
   const path = usePathname();
   const handleClick = () => {
     closeMenu();
@@ -63,7 +64,7 @@ export default function Navbar({
   logoUrl,
   shadow = false,
 }: {
-  links?: Array<NavLinkProps>;
+  links?: APIResponse<'api::global.global'>['data']['attributes']['navLink'];
   logoText?: string;
   theme?: 'dark' | 'light';
   logoUrl?: string;
@@ -92,8 +93,8 @@ export default function Navbar({
 
         <div className="ml-auto hidden flex-shrink-0 items-center lg:flex">
           <ul className="hidden items-stretch space-x-3 capitalize lg:flex">
-            {links?.map((item: NavLinkProps) => (
-              <NavLink key={item.id} url={item.url} text={item.text} />
+            {links?.map((item, i) => (
+              <NavLink key={i} url={item.url} text={item.text} />
             ))}
           </ul>
         </div>
@@ -123,9 +124,9 @@ export default function Navbar({
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-700">
                 <div className="space-y-2 py-6">
-                  {links?.map((item) => (
+                  {links?.map((item, i) => (
                     <MobileNavLink
-                      key={item.id}
+                      key={i}
                       closeMenu={closeMenu}
                       url={item.url}
                       text={item.text}

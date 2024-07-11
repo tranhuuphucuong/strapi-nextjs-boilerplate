@@ -1,24 +1,6 @@
-import { Media } from '@/types';
 import { fetchAPI } from './fetch-api';
 
-type FooterProps = {
-  footerLogo?: Media;
-  logoText: string;
-  socialLinks: {
-    data: any[];
-  };
-  legalLinks: any[];
-};
-
-const defaultFooter = {
-  logoText: '',
-  socialLinks: {
-    data: [],
-  },
-  legalLinks: [],
-};
-
-export const getFooter = async (): Promise<FooterProps> => {
+export const getFooter = async () => {
   const path = `/footer`;
 
   const urlParamsObject = {
@@ -33,7 +15,5 @@ export const getFooter = async (): Promise<FooterProps> => {
     },
   };
 
-  const footerData = await fetchAPI(path, urlParamsObject);
-  if (!footerData) return defaultFooter;
-  return footerData;
+  return await fetchAPI(path, urlParamsObject);
 };

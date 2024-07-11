@@ -11,6 +11,7 @@ import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { FALLBACK_SEO } from '@/lib/constants';
 import { cn } from '@/lib/utils';
+import { APIResponse } from '@/types/strapi';
 import { i18n } from '../../../i18n-config';
 
 const fontSans = FontSans({
@@ -26,10 +27,8 @@ export default async function RootLayout({
   readonly params: { lang: string };
 }) {
   // TODO: CREATE A CUSTOM ERROR PAGE
-  const { footerLogo, logoText, socialLinks, legalLinks } = await getFooter();
-  const global = await getGlobal();
-  // const navbarLogoUrl = getStrapiMedia(navbar.navbarLogo.logoImg?.url);
-  // const footerLogoUrl = getStrapiMedia(footer.footerLogo.logoImg?.url);
+  const footerData = (await getFooter()) as APIResponse<'api::footer.footer'>;
+  const global = (await getGlobal()) as APIResponse<'api::global.global'>;
 
   return (
     <html lang={params.lang}>
@@ -41,13 +40,7 @@ export default async function RootLayout({
             {children}
           </main>
         </Providers>
-        <Footer
-          footerLogo={footerLogo}
-          logoText={logoText}
-          socialLinks={socialLinks?.data}
-          legalLinks={legalLinks}
-          navLinks={global.navLink}
-        />
+        <Footer footerData={footerData} global={global} />
         <Toaster />
       </body>
     </html>
@@ -63,17 +56,17 @@ export async function generateMetadata({
 }: {
   params: { lang: string };
 }): Promise<Metadata> {
-  const meta = await getMetadata();
+  const meta = (await getMetadata()) as APIResponse<'api::metadata.metadata'>;
 
   if (!meta) return FALLBACK_SEO;
 
-  const { title, description, favicon } = meta;
+  const { title, description, favicon } = meta.data.attributes;
 
   return {
     title,
     description,
     icons: {
-      icon: [new URL(favicon?.url, getStrapiURL())],
+      icon: [new URL(favicon?.data.attributes.url || '', getStrapiURL())],
     },
   };
 }

@@ -30,11 +30,11 @@ export async function fetchAPI(
     // Trigger API call
     const response = await fetch(requestUrl, mergedOptions);
     const data = await response.json();
-    // console.log('DATA BEFORE FLATTENING: ', path);
-    // console.dir(data, { depth: null });
+    console.log('DATA BEFORE FLATTENING: ', path);
+    console.dir(data, { depth: null });
     const data2 = flattenAttributes(data);
-    // console.log('DATA AFTER FLATTENING: ');
-    // console.dir(data2, { depth: null });
+    console.log('DATA AFTER FLATTENING: ');
+    console.dir(data2, { depth: null });
 
     return data2;
   } catch (error) {

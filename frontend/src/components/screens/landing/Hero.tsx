@@ -26,11 +26,11 @@ interface HeroProps {
 }
 
 export default async function Hero({ data }: HeroProps) {
-  if (!data?.data.attributes) return;
-  if (!data?.data.attributes.hero) return;
-  const { bio, social_links, picture } = data?.data.attributes.hero;
-  const imgUrl = getStrapiMedia(picture?.data.attributes.url);
-  const avatarUrl = getStrapiMedia(bio?.avatar?.data.attributes.url);
+  if (!data?.data?.attributes) return;
+  if (!data?.data?.attributes.hero) return;
+  const { bio, social_links, picture } = data?.data?.attributes.hero;
+  const imgUrl = getStrapiMedia(picture?.data?.attributes.url);
+  const avatarUrl = getStrapiMedia(bio?.avatar?.data?.attributes.url);
   const global = (await getGlobal()) as APIResponse<'api::global.global'>;
 
   // TODO: CREATE A CUSTOM ERROR PAGE

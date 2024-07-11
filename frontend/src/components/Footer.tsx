@@ -64,8 +64,8 @@ function FooterLink({ url = '#', text = '' }: FooterLink) {
 
 export default function Footer({ footerData, global }: FooterProps) {
   const { footerLogo, logoText, socialLinks, legalLinks } =
-    footerData.data.attributes || {};
-  const { navLink } = global.data.attributes;
+    footerData.data?.attributes || {};
+  const { navLink } = global.data?.attributes || {};
 
   const logoUrl = getStrapiMedia(footerLogo?.data.attributes.url);
   return (

@@ -60,13 +60,13 @@ export async function generateMetadata({
 
   if (!meta) return FALLBACK_SEO;
 
-  const { title, description, favicon } = meta.data.attributes;
+  const { title, description, favicon } = meta.data?.attributes || {};
 
   return {
     title,
     description,
     icons: {
-      icon: [new URL(favicon?.data.attributes.url || '', getStrapiURL())],
+      icon: [new URL(favicon?.data?.attributes.url || '', getStrapiURL())],
     },
   };
 }

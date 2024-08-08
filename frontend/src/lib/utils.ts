@@ -1,11 +1,12 @@
-import { clsx, type ClassValue } from 'clsx';
+import { ClassValue } from 'class-variance-authority/dist/types';
+import classNames from 'classnames';
 import { twMerge } from 'tailwind-merge';
 
 import tailwindConfig from 'tailwind.config.js';
 import resolveConfig from 'tailwindcss/resolveConfig';
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return twMerge(classNames(inputs));
 }
 
 const _toString = (input: string | number | null | undefined) => {

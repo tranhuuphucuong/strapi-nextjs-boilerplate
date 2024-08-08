@@ -3,7 +3,7 @@ import { getStrapiMedia } from '@/api/api-helpers';
 import { APIResponse } from '@/types/strapi';
 import { Dialog } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import clsx from 'clsx';
+import cx from 'classnames';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -79,7 +79,7 @@ export default function Navbar({
 
   return (
     <div
-      className={clsx(
+      className={cx(
         theme === 'dark'
           ? 'p-4 text-white dark:bg-black'
           : 'p-4 text-slate-700',

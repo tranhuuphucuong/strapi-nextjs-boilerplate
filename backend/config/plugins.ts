@@ -12,6 +12,34 @@ export default ({ env }) => ({
         uploadStream: {},
         delete: {},
       },
+      breakpoints: {
+        xlarge: 1920,
+        large: 1000,
+        small: 500,
+        xsmall: 64,
+      },
     },
+  },
+  email: {
+    config: {
+      provider: "nodemailer",
+      providerOptions: {
+        host: env("SMTP_HOST", "smtp.example.com"),
+        port: env("SMTP_PORT"),
+        auth: {
+          user: env("SMTP_USERNAME"),
+          pass: env("SMTP_PASSWORD"),
+        },
+        // ... any custom nodemailer options
+      },
+      settings: {
+        defaultFrom: "hello@example.com",
+        defaultReplyTo: "hello@example.com",
+      },
+    },
+  },
+  folder: {
+    enabled: true,
+    resolve: "./src/plugins/folder",
   },
 });

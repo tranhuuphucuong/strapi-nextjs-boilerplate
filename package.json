@@ -10,10 +10,13 @@
     "seed": "cd backend && yarn strapi import -f ../seed-data.tar.gz",
     "export": "cd backend && yarn strapi export --no-encrypt -f ../seed-data",
     "repo:upstream": "git fetch upstream && git merge upstream/main",
-    "copytypes": "node copyTypes.js"
+    "copytypes": "node copyTypes.js",
+    "type-check": "cd frontend && tsc",
+    "prepare": "husky frontend/.husky"
   },
   "dependencies": {
     "concurrently": "^8.2.2",
+    "husky": "^9.1.4",
     "npm-check-updates": "^16.14.15"
   }
 }

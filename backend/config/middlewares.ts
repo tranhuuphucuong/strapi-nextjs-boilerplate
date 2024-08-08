@@ -30,9 +30,6 @@ export default [
   "strapi::cors",
   "strapi::poweredBy",
   "strapi::query",
-  "strapi::session",
-  "strapi::favicon",
-  "strapi::public",
   {
     name: "strapi::body",
     config: {
@@ -44,4 +41,8 @@ export default [
       },
     },
   },
+  "strapi::session",
+  "strapi::favicon",
+  "strapi::public",
+  { resolve: "../src/middlewares/admin-redirect" },
 ];

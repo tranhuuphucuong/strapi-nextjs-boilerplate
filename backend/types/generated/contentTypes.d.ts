@@ -793,7 +793,7 @@ export interface ApiContactPageContactPage extends Schema.SingleType {
   info: {
     singularName: 'contact-page';
     pluralName: 'contact-pages';
-    displayName: 'contact page';
+    displayName: 'Contact page';
     description: '';
   };
   options: {
@@ -964,7 +964,7 @@ export interface ApiMetadataMetadata extends Schema.SingleType {
   info: {
     singularName: 'metadata';
     pluralName: 'metadata-resources';
-    displayName: 'metadata';
+    displayName: 'Metadata';
     description: '';
   };
   options: {

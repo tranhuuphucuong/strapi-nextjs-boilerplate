@@ -1,3 +1,7 @@
+import { APIResponseData } from './strapi';
+
+export type StrapiMedia = APIResponseData<'plugin::upload.file'>;
+
 export type Media = {
   id: number;
   url: string;

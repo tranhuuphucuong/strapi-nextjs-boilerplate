@@ -8,8 +8,10 @@
     "name": "A Strapi developer"
   },
   "scripts": {
-    "build": "strapi build",
-    "develop": "strapi develop",
+    "prebuild": "cd src/plugins/folder && yarn build",
+    "build": "yarn prebuild && strapi build",
+    "develop": "yarn plugin & strapi develop",
+    "plugin": "cd src/plugins/folder && yarn develop",
     "start": "strapi start",
     "strapi": "strapi"
   },
@@ -17,6 +19,7 @@
     "@strapi/plugin-cloud": "4.24.5",
     "@strapi/plugin-i18n": "4.24.5",
     "@strapi/plugin-users-permissions": "4.24.5",
+    "@strapi/provider-email-nodemailer": "^4.25.7",
     "@strapi/provider-upload-cloudinary": "^4.25.2",
     "@strapi/strapi": "4.24.5",
     "pg": "8.8.0",

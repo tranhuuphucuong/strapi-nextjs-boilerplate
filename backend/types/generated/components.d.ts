@@ -1,6 +1,6 @@
-import type { Schema, Attribute } from '@strapi/strapi';
+import type { Struct, Schema } from '@strapi/strapi';
 
-export interface WidgetBio extends Schema.Component {
+export interface WidgetBio extends Struct.ComponentSchema {
   collectionName: 'components_widget_bios';
   info: {
     displayName: 'bio';
@@ -8,13 +8,13 @@ export interface WidgetBio extends Schema.Component {
     description: '';
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.String;
-    avatar: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    title: Schema.Attribute.String;
+    description: Schema.Attribute.String;
+    avatar: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
   };
 }
 
-export interface SharedSocialLink extends Schema.Component {
+export interface SharedSocialLink extends Struct.ComponentSchema {
   collectionName: 'components_widget_social_links';
   info: {
     displayName: 'socialLink';
@@ -22,16 +22,16 @@ export interface SharedSocialLink extends Schema.Component {
     description: '';
   };
   attributes: {
-    title: Attribute.String;
-    url: Attribute.String;
-    icon: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    platform: Attribute.Enumeration<
+    title: Schema.Attribute.String;
+    url: Schema.Attribute.String;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    platform: Schema.Attribute.Enumeration<
       ['facebook', 'youtube', 'x', 'linkedin', 'instagram']
     >;
   };
 }
 
-export interface SharedSocialLinkList extends Schema.Component {
+export interface SharedSocialLinkList extends Struct.ComponentSchema {
   collectionName: 'components_widget_social_link_lists';
   info: {
     displayName: 'socialLinkList';
@@ -39,50 +39,52 @@ export interface SharedSocialLinkList extends Schema.Component {
     description: '';
   };
   attributes: {
-    SocialLink: Attribute.Component<'shared.social-link', true>;
+    SocialLink: Schema.Attribute.Component<'shared.social-link', true>;
   };
 }
 
-export interface SharedSeo extends Schema.Component {
+export interface SharedSeo extends Struct.ComponentSchema {
   collectionName: 'components_shared_seos';
   info: {
     displayName: 'seo';
     description: '';
   };
   attributes: {
-    metaTitle: Attribute.String;
-    metaDescription: Attribute.Text;
-    sharedImage: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    metaTitle: Schema.Attribute.String;
+    metaDescription: Schema.Attribute.Text;
+    sharedImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
   };
 }
 
-export interface SharedLink extends Schema.Component {
+export interface SharedLink extends Struct.ComponentSchema {
   collectionName: 'components_shared_links';
   info: {
     displayName: 'link';
     icon: 'earth';
   };
   attributes: {
-    url: Attribute.String;
-    text: Attribute.String;
-    newTab: Attribute.Boolean;
+    url: Schema.Attribute.String;
+    text: Schema.Attribute.String;
+    newTab: Schema.Attribute.Boolean;
   };
 }
 
-export interface SharedButton extends Schema.Component {
+export interface SharedButton extends Struct.ComponentSchema {
   collectionName: 'components_shared_buttons';
   info: {
     displayName: 'button';
     icon: 'cursor';
   };
   attributes: {
-    text: Attribute.String;
-    type: Attribute.Enumeration<['solid', 'outline']>;
-    color: Attribute.Enumeration<['primary', 'secondary', 'danger']>;
+    text: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<['solid', 'outline']>;
+    color: Schema.Attribute.Enumeration<['primary', 'secondary', 'danger']>;
   };
 }
 
-export interface SectionsHero extends Schema.Component {
+export interface SectionsHero extends Struct.ComponentSchema {
   collectionName: 'components_sections_heroes';
   info: {
     displayName: 'hero';
@@ -90,44 +92,43 @@ export interface SectionsHero extends Schema.Component {
     description: '';
   };
   attributes: {
-    bio: Attribute.Component<'widget.bio'>;
-    picture: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    social_links: Attribute.Relation<
-      'sections.hero',
+    bio: Schema.Attribute.Component<'widget.bio', false>;
+    picture: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    social_links: Schema.Attribute.Relation<
       'oneToMany',
       'api::social-link.social-link'
     >;
   };
 }
 
-export interface SectionsFeatureVideo extends Schema.Component {
+export interface SectionsFeatureVideo extends Struct.ComponentSchema {
   collectionName: 'components_sections_feature_videos';
   info: {
     displayName: 'featureVideo';
     icon: 'cube';
   };
   attributes: {
-    title: Attribute.String;
-    Description: Attribute.String;
-    video: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    title: Schema.Attribute.String;
+    Description: Schema.Attribute.String;
+    video: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
   };
 }
 
-export interface MetaMetadata extends Schema.Component {
+export interface MetaMetadata extends Struct.ComponentSchema {
   collectionName: 'components_meta_metadata';
   info: {
     displayName: 'metadata';
     icon: 'database';
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.String;
+    title: Schema.Attribute.String;
+    description: Schema.Attribute.String;
   };
 }
 
-declare module '@strapi/types' {
-  export module Shared {
-    export interface Components {
+declare module '@strapi/strapi' {
+  export module Public {
+    export interface ComponentSchemas {
       'widget.bio': WidgetBio;
       'shared.social-link': SharedSocialLink;
       'shared.social-link-list': SharedSocialLinkList;

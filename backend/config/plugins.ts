@@ -38,8 +38,8 @@ export default ({ env }) => ({
       },
     },
   },
-  folder: {
-    enabled: true,
-    resolve: "./src/plugins/folder",
-  },
+  // folder: {
+  //   enabled: true,
+  //   resolve: "./src/plugins/folder",
+  // },
 });

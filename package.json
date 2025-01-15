@@ -1,18 +1,16 @@
 {
   "scripts": {
-    "frontend": "yarn dev --prefix ../frontend/",
-    "backend": "yarn dev --prefix ../backend/",
-    "clear": "cd frontend && rm -rf .next && rm -rf cache",
-    "setup:frontend": "cd frontend && yarn",
-    "setup:backend": "cd backend && yarn",
-    "setup": "yarn install && yarn setup:frontend && yarn setup:backend",
-    "dev": "yarn clear && concurrently \"cd frontend && yarn dev\" \"cd backend && yarn develop\"",
-    "seed": "cd backend && yarn strapi import -f ../seed-data.tar.gz",
-    "export": "cd backend && yarn strapi export --no-encrypt -f ../seed-data",
+    "clear": "cd next && rm -rf .next && rm -rf cache",
+    "setup:next": "cd next && npm i",
+    "setup:strapi": "cd strapi && npm i",
+    "setup": "npm install && npm run setup:next && npm run setup:strapi",
+    "dev": "npm run clear && concurrently \"cd next && npm run dev\" \"cd strapi && npm run develop\"",
+    "seed": "cd strapi && npm run seed",
+    "export": "cd strapi && npm run strapi export --no-encrypt -f ../seed-data",
     "repo:upstream": "git fetch upstream && git merge upstream/main",
     "copytypes": "node copyTypes.js",
-    "type-check": "cd frontend && tsc",
-    "prepare": "husky frontend/.husky"
+    "type-check": "cd next && tsc",
+    "prepare": "husky next/.husky"
   },
   "dependencies": {
     "concurrently": "^8.2.2",
